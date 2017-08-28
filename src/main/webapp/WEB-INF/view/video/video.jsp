@@ -14,30 +14,43 @@
 
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/jquery-confirm.css"
+	rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
 <script type="text/javascript">
 function deleteVideo(the){
-	$("#url").val(the.name);
-	$('#deleteModal').modal();
+	$.confirm({
+	    title: '提示',
+	    content: '你确定删除吗?',
+	    buttons: {
+	    	确认: function () {
+	        	$.get(
+	        		"${pageContext.request.contextPath}/video/deleteVideo.action",
+	        		{"id":the.name},
+	        		function(msg){
+	        			if(msg == "success"){
+	        				location.reload();
+	        			}
+	        		},
+	        	    "text"
+	        	);
+	        },
+	                  取消: function () {
+	        }
+	    }
+	});
 }
 
  $(function(){
 	 var num = 0;
 	 var nu = 0;
 	 var arr = new Array();
-	 
-	 $(function(){
-			$(".delete").click(function(){
-				return confirm("确定删除吗?");
-			});
-		});
-	 
-	 $("#selectAll").click(function(){
+	  $("#selectAll").click(function(){
 			$(".select").each(function(index,dom){
 				dom.checked = $("#selectAll")[0].checked;
 			});
@@ -66,6 +79,29 @@ function deleteVideo(the){
 	 });
 	 
 	 $("#multidelete").click(function(){
+		 if(num == 0){
+			 $.alert({
+				    title: '警告',
+				    content: '请先选择要删除的数据!',
+				});
+		 }else{
+			 $.confirm({
+				    title: '提示',
+				    content: '你确定删除吗?',
+				    buttons: {
+				    	确认: function () {
+				        	$("#formId").submit();
+				        },
+				                  取消: function () {
+				        }
+				        
+				    }
+				});
+		 }
+	 });
+	 
+	 
+	 /* $("#multidelete").click(function(){
 		 $(".select").each(function(index,dom){
 			 if(dom.checked){
 				 arr[nu] = dom.value;
@@ -76,7 +112,7 @@ function deleteVideo(the){
 			 $("#url").val("${pageContext.request.contextPath}/video/multiDeleteVideo.action?idArr="+arr);
 			 $('#deleteModal').modal();
 		} 
-	 });
+	 }); */
  });
  
 	/* 
@@ -130,6 +166,12 @@ function deleteVideo(the){
 </head>
 
 <body>
+
+<jsp:include page="/header.jsp">
+		<jsp:param value="video" name="fromJsp" />
+	</jsp:include>
+	<div class="container">
+
 	<div class=" jumbotron" style="padding-left: 30px;">
 		<p style="font-size: 32px;">视频列表-视频管理</p>
 	</div>
@@ -168,7 +210,7 @@ function deleteVideo(the){
 
 			<input type="submit" class="btn btn-primary" value="查询" />
 		</form>
-
+        <form action="${pageContext.request.contextPath}/video/multiDeleteVideo.action" id="formId">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -201,20 +243,18 @@ function deleteVideo(the){
 						<th>${li.videoPlayTimes }</th>
 						<td><a class="glyphicon glyphicon-edit"
 							href="${pageContext.request.contextPath}/video/updateVideo.action?id=${li.id}"></a></td>
-						<td><a class="glyphicon glyphicon-trash" name="${pageContext.request.contextPath}/video/deleteVideo.action?id=${li.id}"
+						<td><a class="glyphicon glyphicon-trash" name="${li.id}"
 							onclick="deleteVideo(this)"
 							></a></td>
 					</tr>
-
-				</c:forEach>
-
-
-			</tbody>
+                  </c:forEach>
+              </tbody>
 		</table>
+		</form>
 		<zyz:page url="${pageContext.request.contextPath}/video/video.action"></zyz:page>
-		<%@include file="/modal.jsp" %>
+		<%-- <%@include file="/modal.jsp" %> --%>
 	</div>
-
+</div>
 </body>
 
 </html>

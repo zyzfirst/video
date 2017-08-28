@@ -16,10 +16,9 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	AdminMapper am;
 	@Override
-	public List<Admin> getAdmin(String login_name, String login_pwd)  {
-		String pwd = DigestUtils.md5DigestAsHex(login_pwd.getBytes());
+	public List<Admin> getAdmin(Admin ad)  {
 		AdminExample ae = new AdminExample();
-		 ae.createCriteria().andLoginNameEqualTo(login_name).andLoginPwdEqualTo(pwd);
+		 ae.createCriteria().andLoginNameEqualTo(ad.getLoginName()).andLoginPwdEqualTo(ad.getLoginPwd());
 		return am.selectByExample(ae);
 	}
 

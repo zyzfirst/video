@@ -15,65 +15,91 @@
 
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/jquery-confirm.css"
+	rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
 <script type="text/javascript">
 	function deleteCourse(the) {
-		$("#url").val(the.name);
-		$('#deleteModal').modal();
+		$
+				.confirm({
+					title : '提示',
+					content : '你确定删除吗?',
+					buttons : {
+						确认 : function() {
+							$
+									.get(
+											"${pageContext.request.contextPath}/course/deleteCourse.action",
+											{
+												"id" : the.name
+											}, function(msg) {
+												if (msg == "success") {
+													location.reload();
+												}
+											}, "text"
+
+									);
+						},
+						取消 : function() {
+						}
+
+					}
+				});
 	}
 </script>
 
 </head>
 
 <body>
+	<jsp:include page="/header.jsp">
+		<jsp:param value="course" name="fromJsp" />
+	</jsp:include>
+	<div class="container">
+		<div class=" jumbotron" style="padding-left: 30px;">
+			<p style="font-size: 32px;">课程列表-课程管理</p>
+		</div>
+		<div>
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/course/addCourse.action"
+				role="button">添加课程</a>
 
-	<div class=" jumbotron" style="padding-left: 30px;">
-		<p style="font-size: 32px;">课程列表-课程管理</p>
-	</div>
-	<div>
-		<a class="btn btn-primary"
-			href="${pageContext.request.contextPath}/course/addCourse.action"
-			role="button">添加课程</a>
-
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>序号</th>
-					<th>标题</th>
-					<th>学科</th>
-					<th width="70%">简介</th>
-					<th>编辑</th>
-					<th>删除</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${page.rows }" varStatus="status" var="li">
+			<table class="table table-hover">
+				<thead>
 					<tr>
-						<th scope="row">${status.count }</th>
-						<td>${li.courseName }</td>
-						<td>${li.sub.subjectName }</td>
-						<td>${li.courseDescr }</td>
-						<td><a class="glyphicon glyphicon-edit"
-							href="${pageContext.request.contextPath}/course/updateCourse.action?id=${li.id}"></a></td>
-						<td><a class="glyphicon glyphicon-trash"
-							onclick="deleteCourse(this)" 
-							name="${pageContext.request.contextPath}/course/deleteCourse.action?id=${li.id}"></a>
-							</td>
-
+						<th>序号</th>
+						<th>标题</th>
+						<th>学科</th>
+						<th width="70%">简介</th>
+						<th>编辑</th>
+						<th>删除</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<zyz:page
-			url="${pageContext.request.contextPath}/course/course.action"></zyz:page>
-		<%@include file="/modal.jsp"%>
-	</div>
+				</thead>
+				<tbody>
+					<c:forEach items="${page.rows }" varStatus="status" var="li">
+						<tr>
+							<th scope="row">${status.count }</th>
+							<td>${li.courseName }</td>
+							<td>${li.sub.subjectName }</td>
+							<td>${li.courseDescr }</td>
+							<td><a class="glyphicon glyphicon-edit"
+								href="${pageContext.request.contextPath}/course/updateCourse.action?id=${li.id}"></a></td>
+							<td><a class="glyphicon glyphicon-trash"
+								onclick="deleteCourse(this)" name="${li.id}"></a></td>
 
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<zyz:page
+				url="${pageContext.request.contextPath}/course/course.action"></zyz:page>
+			<%-- <%@include file="/modal.jsp"%> --%>
+		</div>
+	</div>
 </body>
 
 </html>

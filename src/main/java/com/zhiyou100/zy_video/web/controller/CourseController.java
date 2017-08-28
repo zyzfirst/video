@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhiyou100.zy_video.model.Course;
 import com.zhiyou100.zy_video.model.Speaker;
@@ -27,11 +28,11 @@ public class CourseController {
 		return "course/course";
 	}
 	
-	@RequestMapping("/deleteCourse.action")
+	/*@RequestMapping("/deleteCourse.action")
 	public String deleteCourse(Integer id){
 		cs.deleteCourse(id);
 		return "redirect:/course/course.action";
-	}
+	}*/
 	
 	@RequestMapping(value="/addCourse.action",method=RequestMethod.GET)
 	public String addSpeaker(Model md){
@@ -59,6 +60,13 @@ public class CourseController {
 	public String updateCourse(Course course){
 		cs.updateCourse(course);
 		return "redirect:/course/course.action";
+	}
+	
+	@RequestMapping("/deleteCourse.action")
+	@ResponseBody
+	public String deleteCourseById(Integer id){
+		cs.deleteCourse(id);
+		return "success";
 	}
 
 }

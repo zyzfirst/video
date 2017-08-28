@@ -19,7 +19,7 @@ public class SpeakerServiceImpl implements SpeakerService {
 		pageInfo.setSize(10);
 		pageInfo.setPage(page);
 		pageInfo.setTotal(sm.findSpeakerCount(speaker_name,speaker_job));
-		pageInfo.setRows(sm.findAllSpeakerByPage(speaker_name,speaker_job,(page-1)*5));
+		pageInfo.setRows(sm.findAllSpeakerByPage(speaker_name,speaker_job,(page-1)*10));
 		return pageInfo;
 	}
 

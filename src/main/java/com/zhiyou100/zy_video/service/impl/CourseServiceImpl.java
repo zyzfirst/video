@@ -22,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
 		course.setSize(10);
 		course.setPage(page);
 		course.setTotal(cm.findCourseCount());
-		course.setRows(cm.findAllCourseByPage((page-1)*5));
+		course.setRows(cm.findAllCourseByPage((page-1)*10));
 		return course;
 	}
 

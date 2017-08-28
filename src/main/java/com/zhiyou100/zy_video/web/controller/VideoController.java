@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhiyou100.zy_video.model.Course;
 import com.zhiyou100.zy_video.model.Speaker;
@@ -39,9 +40,10 @@ public class VideoController {
 	}
 	
 	@RequestMapping("/deleteVideo.action")
+	@ResponseBody
 	public String deleteVideo(Integer id){
 		vs.deleteVideo(id);
-		return "forward:/video/video.action";
+		return "success";
 	}
 	
 	@RequestMapping(value= "/addVideo.action",method=RequestMethod.GET)
@@ -83,9 +85,8 @@ public class VideoController {
 	}
 	
 	@RequestMapping("/multiDeleteVideo.action")
-	public String multiDeleteVideo(Integer[] idArr){
-		
-		vs.multiDeleteVideo(idArr);
+	public String multiDeleteVideo(Integer[] check){
+		vs.multiDeleteVideo(check);
 		return "redirect:/video/video.action";
 	}
 }

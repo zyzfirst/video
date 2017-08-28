@@ -1,5 +1,7 @@
 package com.zhiyou100.zy_video.model;
 
+import com.zhiyou100.zy_video.utils.MD5Utils;
+
 public class Admin {
     private Integer id;
 
@@ -28,6 +30,6 @@ public class Admin {
     }
 
     public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd == null ? null : loginPwd.trim();
+        this.loginPwd = loginPwd == null ? null :MD5Utils.getMD5(loginPwd.trim());
     }
 }

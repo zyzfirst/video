@@ -12,37 +12,82 @@
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>视频管理系统</title>
 
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/jquery-confirm.css"
+	rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
 <script type="text/javascript">
-function deleteSpeaker(the){
+/* function deleteSpeaker(the){
 	$("#url").val(the.name);
 	$('#deleteModal').modal();
+} */
+
+function deleteSpeaker(the){
+$.confirm({
+    title: '提示',
+    content: '你确定删除吗?',
+    buttons: {
+    	确认: function () {
+    		$.get(
+	        		"${pageContext.request.contextPath}/speaker/deleteSpeaker.action",
+	        		{"id":the.name},
+	        		function(msg){
+	        			if(msg == "success"){
+	        				location.reload();
+	        			}
+	        		},
+	        	    "text"
+	        	
+	        	);
+        },
+                  取消: function () {
+        }
+        
+    }
+});
 }
+
+
+
+
+
+
 </script>
 
 </head>
 
-<body >
-
+<body>
+   <jsp:include page="/header.jsp">
+   <jsp:param value="speaker" name="fromJsp"/>
+   </jsp:include>
+  <div class="container">
 	<div class="jumbotron" style="padding-left: 30px;">
 		<p style="font-size: 32px;">主讲人列表-主讲人管理</p>
 	</div>
 	<div>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/speaker/addSpeaker.action" role="button">添加主讲人</a>
+		<a class="btn btn-primary"
+			href="${pageContext.request.contextPath}/speaker/addSpeaker.action"
+			role="button">添加主讲人</a>
 
-		<form class="form-inline" style="float: right;" action="${pageContext.request.contextPath}/speaker/speaker.action" method="post">
+		<form class="form-inline" style="float: right;"
+			action="${pageContext.request.contextPath}/speaker/speaker.action"
+			method="post">
 			<div class="form-group">
-				<label for="exampleInputName2">名称</label> <input type="text" name="speaker_name"
-				value="${speaker_name }"	class="form-control" id="exampleInputName2" placeholder="主讲人名称">
+				<label for="exampleInputName2">名称</label> <input type="text"
+					name="speaker_name" value="${speaker_name }" class="form-control"
+					id="exampleInputName2" placeholder="主讲人名称">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail2">职位</label> <input type="text" name="speaker_job"
-				value="${speaker_job }"	class="form-control" id="exampleInputEmail2" placeholder="主讲人职位">
+				<label for="exampleInputEmail2">职位</label> <input type="text"
+					name="speaker_job" value="${speaker_job }" class="form-control"
+					id="exampleInputEmail2" placeholder="主讲人职位">
 			</div>
 			<button type="submit" class="btn btn-primary">查询</button>
 		</form>
@@ -60,23 +105,26 @@ function deleteSpeaker(the){
 			</thead>
 			<tbody>
 			<c:forEach items="${page.rows }" varStatus="status" var="li">
-				<tr>
-					<th scope="row">${status.count }</th>
-					<td>${li.speakerName }</td>
-					<td>${li.speakerJob }</td>
-					<td>${li.speakerDescr }</td>
-					<td><a class="glyphicon glyphicon-edit"
-					href="${pageContext.request.contextPath}/speaker/updateSpeaker.action?id=${li.id}"></a></td>
-					<td><a class="glyphicon glyphicon-trash" name="${pageContext.request.contextPath}/speaker/deleteSpeaker.action?id=${li.id}"
-					onclick="deleteSpeaker(this)"></a></td>
-				</tr>
-			</c:forEach>
+					<tr>
+						<th scope="row">${status.count }</th>
+						<td>${li.speakerName }</td>
+						<td>${li.speakerJob }</td>
+						<td>${li.speakerDescr }</td>
+						<td><a class="glyphicon glyphicon-edit"
+							href="${pageContext.request.contextPath}/speaker/updateSpeaker.action?id=${li.id}"></a></td>
+						<td><a class="glyphicon glyphicon-trash deleteId"
+							name="${li.id}"
+							onclick="deleteSpeaker(this)"></a></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
-     <zyz:page url="${pageContext.request.contextPath}/speaker/speaker.action"></zyz:page>
-     <%@include file="/modal.jsp" %>
-	</div>
+		<zyz:page
+			url="${pageContext.request.contextPath}/speaker/speaker.action"></zyz:page>
+		<%-- <%@include file="/modal.jsp"%> --%>
 
+	</div>
+</div>
 </body>
 
 </html>

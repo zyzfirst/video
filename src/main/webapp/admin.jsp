@@ -24,10 +24,10 @@
 			<div class="container">
 				<div>
 					<a class="navbar-brand" target="pageBox" href="addTeacher.html" style="font-size: 25px;">视频管理系统</a>
-					<a class="navbar-brand" target="pageBox" href="${pageContext.request.contextPath}/video/video.action">视频管理</a>
-					<a class="navbar-brand" target="pageBox" href="${pageContext.request.contextPath}/speaker/speaker.action">主讲人管理</a>
-					<a class="navbar-brand" target="pageBox" href="${pageContext.request.contextPath}/course/course.action">课程管理</a>
-					<a class="navbar-brand" target="pageBox" href="${pageContext.request.contextPath}/statistic/statistic.action">统计分析</a>
+					<a class="navbar-brand"  href="${pageContext.request.contextPath}/video/video.action">视频管理</a>
+					<a class="navbar-brand"  href="${pageContext.request.contextPath}/speaker/speaker.action">主讲人管理</a>
+					<a class="navbar-brand"  href="${pageContext.request.contextPath}/course/course.action">课程管理</a>
+					<a class="navbar-brand"  href="${pageContext.request.contextPath}/statistic/statistic.action">统计分析</a>
 				</div>
 				<div class="pull-right">
 					<a class="navbar-brand" target="pageBox" href="#">${admin.loginName }</a>

@@ -28,13 +28,13 @@
 
 			<div class="form-group">
 
-				<input type="text" class="form-control" name="login_name" placeholder="用户名" value="admin">
+				<input type="text" class="form-control" name="loginName" placeholder="用户名" value="admin">
 
 			</div>
 
 			<div class="form-group">
 
-				<input type="password" class="form-control" name="login_pwd" placeholder="登录密码" value="admin">
+				<input type="password" class="form-control" name="loginPwd" placeholder="登录密码" value="admin">
 
 			</div>
 

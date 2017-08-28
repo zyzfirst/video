@@ -6,6 +6,6 @@ import com.zhiyou100.zy_video.model.Admin;
 
 public interface LoginService {
 
-	List<Admin> getAdmin(String login_name, String login_pwd);
+	List<Admin> getAdmin(Admin ad);
 
 }
