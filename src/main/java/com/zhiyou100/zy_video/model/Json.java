@@ -3,6 +3,21 @@ package com.zhiyou100.zy_video.model;
 public class Json {
 	private StringBuilder courseName;
 	private StringBuilder playTimes;
+	private boolean success;
+	private String message;
+	
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public StringBuilder getCourseName() {
 		return courseName;
 	}

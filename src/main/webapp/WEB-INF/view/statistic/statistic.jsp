@@ -56,11 +56,11 @@ function statisticRe(){
 						data : [ '课程平均播放次数' ],
 						y:'bottom'
 					},
-					yAxis : [ {
+					xAxis : [ {
 						type : 'category',
 						data : courseName
 					} ],
-					xAxis : [ {
+					yAxis : [ {
 						type : 'value'
 					} ],
 					series : [ {
@@ -116,12 +116,13 @@ function statisticRe(){
 			var option = {
 				
 					title: {
-		                text: '数据来源:zhiyou100.com',
+		                text: '课程平均播放次数',
 		                textStyle: {
-		    	        	fontWeight: '10px',              
+		    	        	fontWeight: '100px',              
 		    	        	
 		    	      	},
 		                x:"center" ,
+		                subtext:'数据来源:zhiyou100.com'
 		                
 		            },
 					tooltip : {
@@ -129,7 +130,7 @@ function statisticRe(){
 				},
 				legend : {
 					data : [ '课程平均播放次数' ],
-					x:'right'
+					x:'bottom'
 				},
 				xAxis : [ {
 					type : 'category',
@@ -148,8 +149,6 @@ function statisticRe(){
 			// 为echarts对象加载数据 
 			myChart.setOption(option);
 		});
-		alert(${avgTimes});
-		alert(${courseName});
 		
 	});
 	</script>

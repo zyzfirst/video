@@ -27,7 +27,27 @@ public class Video {
     
     private Integer avgTimes;
     
-    public Integer getAvgTimes() {
+    private Speaker speaker;
+    
+    private Course course;
+    
+    public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Speaker getSpeaker() {
+		return speaker;
+	}
+
+	public void setSpeaker(Speaker speaker) {
+		this.speaker = speaker;
+	}
+
+	public Integer getAvgTimes() {
 		return avgTimes;
 	}
 
@@ -144,14 +164,14 @@ public class Video {
         this.videoPlayTimes = videoPlayTimes;
     }
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Video [id=" + id + ", videoTitle=" + videoTitle + ", speakerId=" + speakerId + ", courseId=" + courseId
 				+ ", videoLength=" + videoLength + ", videoImageUrl=" + videoImageUrl + ", videoUrl=" + videoUrl
 				+ ", videoDescr=" + videoDescr + ", insertTime=" + insertTime + ", updateTime=" + updateTime
-				+ ", videoPlayTimes=" + videoPlayTimes + ", avgTimes=" + avgTimes + ", speakerName=" + speakerName
-				+ ", courseName=" + courseName + "]";
-	}
+				+ ", videoPlayTimes=" + videoPlayTimes + ", avgTimes=" + avgTimes + ", speaker=" + speaker + ", course="
+				+ course + ", speakerName=" + speakerName + ", courseName=" + courseName + "]";
+	}*/
 
 	
 }

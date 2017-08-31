@@ -258,4 +258,81 @@
   select * from subject 
   </select>
   
+  
+  <resultMap id="MultiMyResultMap" type="pojo" >
+  <association property="subject" javaType="Subject">
+  <id column="id" property="id" jdbcType="INTEGER" />
+  <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+  </association>
+  
+  <collection property="course" ofType="Course">
+  <id column="cid" property="id" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_descr" property="courseDescr" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    
+    <collection property="videoList" ofType="Video">
+  <id column="vid" property="id" jdbcType="INTEGER" />
+    <result column="video_title" property="videoTitle" jdbcType="VARCHAR" />
+    <result column="speaker_id" property="speakerId" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="video_length" property="videoLength" jdbcType="INTEGER" />
+    <result column="video_image_url" property="videoImageUrl" jdbcType="VARCHAR" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="video_descr" property="videoDescr" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="video_play_times" property="videoPlayTimes" jdbcType="INTEGER" />
+    
+    <association property="speaker" javaType="Speaker">
+  <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="speaker_name" property="speakerName" jdbcType="VARCHAR" />
+    <result column="speaker_job" property="speakerJob" jdbcType="VARCHAR" />
+    <result column="speaker_head_url" property="speakerHeadUrl" jdbcType="VARCHAR" />
+    <result column="speaker_descr" property="speakerDescr" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </association>
+  </collection>
+  </collection>
+  </resultMap>
+  
+  <resultMap type="course" id="changeMap">
+  	<id column="cid" property="id" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_descr" property="courseDescr" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    
+    <collection property="videoList" ofType="Video">
+  <id column="vid" property="id" jdbcType="INTEGER" />
+    <result column="video_title" property="videoTitle" jdbcType="VARCHAR" />
+    <result column="speaker_id" property="speakerId" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="video_length" property="videoLength" jdbcType="INTEGER" />
+    <result column="video_image_url" property="videoImageUrl" jdbcType="VARCHAR" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="video_descr" property="videoDescr" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="video_play_times" property="videoPlayTimes" jdbcType="INTEGER" />
+    </collection>
+  </resultMap> 
+  
+  <select id="findVideoAndCourseAndSubjectById" resultMap="MultiMyResultMap">
+  <!-- select s.subject_name,sp.speaker_name,c.id cid,c.*,v.*,v.id vid from course c,subject s,video v,speaker sp where course_id = c.id and subject_id = s.id and speaker_id = sp.id and s.id = #{id} --> 
+  SELECT v.*,c.* ,v.id vid ,c.id cid FROM video v LEFT JOIN course c ON c.id =v.course_id  WHERE c.id IN (SELECT c.id FROM course WHERE  c.subject_id = 1)
+  </select>
+  
+  
+  <select id="findCourseById" resultMap="changeMap">
+  SELECT v.*,c.* ,v.id vid ,c.id cid FROM video v LEFT JOIN course c ON c.id =v.course_id  WHERE c.id IN (SELECT c.id FROM course WHERE  c.subject_id = #{id})
+  </select>
+  
+  
+  
+  
 </mapper>

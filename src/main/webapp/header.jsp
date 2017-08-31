@@ -45,7 +45,7 @@
 							<a href="#">${admin.loginName }</a>
 						</li>
 						<li>
-							<a class="glyphicon glyphicon-log-in"></a>
+							<a class="glyphicon glyphicon-log-in" href="${pageContext.request.contextPath }/adminLogout.action"></a>
 						</li>
 					</ul>
 				</div>

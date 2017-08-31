@@ -20,4 +20,10 @@ public class Subject {
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName == null ? null : subjectName.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Subject [id=" + id + ", subjectName=" + subjectName + "]";
+	}
+    
 }

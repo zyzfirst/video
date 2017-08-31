@@ -19,11 +19,21 @@ public class LoginController {
 	public String login(Admin ad,HttpServletRequest req){
 		List<Admin> admin = ls.getAdmin(ad);
 		if(admin.size()==0){
-			return "forward:/index.jsp";
+			return "/index";
 		}else{
 			req.getSession().setAttribute("admin", admin.get(0));
-			return "forward:/admin.jsp";
+			return "forward:/video/video.action";
 		}
+	}
+	
+	@RequestMapping("/index.action")
+	public String index(){
+		return "/index";
+	}
+	
+	@RequestMapping("/adminLogout.action")
+	public String adminLogout(){
+		return "redirect:/index.jsp";
 	}
 	
 	

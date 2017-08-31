@@ -1,6 +1,7 @@
 package com.zhiyou100.zy_video.mapper;
 
 import com.zhiyou100.zy_video.model.Course;
+import com.zhiyou100.zy_video.model.Pojo;
 import com.zhiyou100.zy_video.model.Speaker;
 import com.zhiyou100.zy_video.model.Video;
 import com.zhiyou100.zy_video.model.VideoExample;
@@ -47,5 +48,11 @@ public interface VideoMapper {
 	void multiDeleteVideo(Integer[] idArr);
 
 	List<Video> getStatistic();
+
+	Video findVideoById(@Param("id") Integer videoId);
+
+	Pojo findVideoListBySubjectId(@Param("id") Integer subjectId);
+
+	List<Video> findVideoBySubjectId(@Param("id")Integer subjectId,@Param("courseId") Integer courseId);
 
 }

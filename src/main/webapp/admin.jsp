@@ -23,7 +23,7 @@
 		<nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0px;">
 			<div class="container">
 				<div>
-					<a class="navbar-brand" target="pageBox" href="addTeacher.html" style="font-size: 25px;">视频管理系统</a>
+					<a class="navbar-brand"  href="#" style="font-size: 25px;">视频管理系统</a>
 					<a class="navbar-brand"  href="${pageContext.request.contextPath}/video/video.action">视频管理</a>
 					<a class="navbar-brand"  href="${pageContext.request.contextPath}/speaker/speaker.action">主讲人管理</a>
 					<a class="navbar-brand"  href="${pageContext.request.contextPath}/course/course.action">课程管理</a>

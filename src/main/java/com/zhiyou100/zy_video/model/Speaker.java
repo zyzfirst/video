@@ -72,4 +72,12 @@ public class Speaker {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	@Override
+	public String toString() {
+		return "Speaker [id=" + id + ", speakerName=" + speakerName + ", speakerJob=" + speakerJob + ", speakerHeadUrl="
+				+ speakerHeadUrl + ", speakerDescr=" + speakerDescr + ", insertTime=" + insertTime + ", updateTime="
+				+ updateTime + "]";
+	}
+    
 }

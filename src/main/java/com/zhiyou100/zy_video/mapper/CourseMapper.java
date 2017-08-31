@@ -2,6 +2,7 @@ package com.zhiyou100.zy_video.mapper;
 
 import com.zhiyou100.zy_video.model.Course;
 import com.zhiyou100.zy_video.model.CourseExample;
+import com.zhiyou100.zy_video.model.Pojo;
 import com.zhiyou100.zy_video.model.Subject;
 
 import java.util.List;
@@ -35,4 +36,8 @@ public interface CourseMapper {
 	List<Course> findAllCourseByPage(@Param("star")int i);
 
 	List<Subject> findSubject();
+
+	Pojo findVideoAndCourseAndSubjectById(@Param("id") Integer subjectId);
+
+	List<Course> findCourseById(@Param("id")Integer subjectId);
 }

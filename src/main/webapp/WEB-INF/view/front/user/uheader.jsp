@@ -9,7 +9,7 @@
 
 <header>
 	<div class="container top_bar clearfix">
-		<img src="static/img/logo.png" alt="智游">
+		<img src="${pageContext.request.contextPath}/img/logo.png" alt="智游">
 		<div id="tele">
 			<span>4006-371-555</span>
 			<span>0371-88888598</span>
@@ -18,21 +18,21 @@
 	<menu>
 		<div class="container clearfix">
 			<ul class="clearfix f_left">
-				<li><a href="index.do">首页</a></li>
-				<li class="menu_active"><a href="front/user/index.do">个人中心</a></li>
+				<li><a href="${pageContext.request.contextPath}/front/user/index.do?id=${user.id}">首页</a></li>
+				<li class="menu_active"><a href="${pageContext.request.contextPath}/front/user/index.do?id=${user.id}">个人中心</a></li>
 			</ul>
 			<div id="user_bar">
 				<a href="front/user/index.action">
-					<c:if test="${empty sessionScope._front_user.headUrl}">
-						<img id="avatar" src="static/img/avatar_lg.png" alt="">
+					<c:if test="${empty user.headUrl}">
+						<img id="avatar" src="${pageContext.request.contextPath}/img/avatar_lg.png" alt="">
 					</c:if>
 
-					<c:if test="${not empty sessionScope._front_user.headUrl}">
-						<img id="avatar" src="${user.headUrl}" alt="">
+					<c:if test="${not empty user.headUrl}">
+						<img id="avatar" src="/pic/${user.headUrl}" alt="">
 					</c:if>
 
 				</a>
-				<a href="front/user/logout.do" id="lay_out">退出</a>
+				<a href="${pageContext.request.contextPath}/front/user/logoutUser.do" id="lay_out">退出</a>
 			</div>
 		</div>
 	</menu>

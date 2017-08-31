@@ -3,7 +3,7 @@
 <footer>
 	<ul>
 		<li>
-			<img src="static/img/footer_logo.png" alt="" draggable="false">
+			<img src="${pageContext.request.contextPath}/img/footer_logo.png" alt="" draggable="false">
 		</li>
 		<li class="mt25">
 			<h3>各校区地址</h3>
@@ -24,8 +24,8 @@
 				<li class="erwei">
 					<br>
 					<div>
-						<img class="weixin" src="static/img/微信公众号.png" alt="" draggable="false">
-						<img class="weibo" src="static/img/微博公众号.png" alt="" draggable="false">
+						<img class="weixin" src="${pageContext.request.contextPath}/img/微信公众号.png" alt="" draggable="false">
+						<img class="weibo" src="${pageContext.request.contextPath}/img/微博公众号.png" alt="" draggable="false">
 					</div>
 				</li>
 			</ul>
@@ -39,15 +39,15 @@
 <div class="mask hidden" id="loginDiv">
 	<div class="mask_content">
 		<div class="mask_content_header">
-			<img src="static/img/logo.png" alt="" class="ma">
+			<img src="${pageContext.request.contextPath}/img/logo.png" alt="" class="ma">
 		</div>
 		<div class="mask_content_body">
 			<form id="loginForm" action="front/user/login.do" method="post">
 				<h3>快速登录</h3>
-				<input type="email" id="loginEmail" placeholder="请输入邮箱" name="email">
-				<input type="password" id="loginPassword" placeholder="请输入密码" name="password">
+				<input type="email" id="loginEmail" placeholder="请输入邮箱" name="email" value="${email }">
+				<input type="password" id="loginPassword" placeholder="请输入密码" name="password" value="${pwd }">
 				<div id="forget">
-					<a href="forgetpwd.do">忘记密码？</a>
+					<a href="${pageContext.request.contextPath}/front/user/forgetpwd.do">忘记密码？</a>
 				</div>
 				<input type="submit" value="登&#x3000;录">
 			</form>
@@ -60,7 +60,7 @@
 <div class="mask hidden" id="regDiv">
 	<div class="mask_content">
 		<div class="mask_content_header">
-			<img src="static/img/logo.png" alt="" class="ma">
+			<img src="${pageContext.request.contextPath}/img/logo.png" alt="" class="ma">
 		</div>
 		<div class="mask_content_body">
 			<form id="regForm" action="front/user/regist.do" method="post">
