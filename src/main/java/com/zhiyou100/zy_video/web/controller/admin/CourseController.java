@@ -1,4 +1,4 @@
-package com.zhiyou100.zy_video.web.controller;
+package com.zhiyou100.zy_video.web.controller.admin;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import com.zhiyou100.zy_video.service.CourseService;
 import com.zhiyou100.zy_video.utils.Page;
 
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/admin/course")
 public class CourseController {
 	@Autowired
 	CourseService cs;
@@ -25,7 +25,7 @@ public class CourseController {
 	public String courseList(@RequestParam(defaultValue="1")Integer page,Model md){
 		Page<Course> course = cs.findAllCourse(page);
 		md.addAttribute("page", course);
-		return "course/course";
+		return "admin/course/course";
 	}
 	
 	/*@RequestMapping("/deleteCourse.action")
@@ -38,13 +38,13 @@ public class CourseController {
 	public String addSpeaker(Model md){
 		List<Subject> subject = cs.findSubject();
 		md.addAttribute("subject", subject);
-		return "/course/addCourse";
+		return "admin/course/addCourse";
 	}
 	
 	@RequestMapping(value="/addCourse.action",method=RequestMethod.POST)
 	public String addCourse(Course course){
         cs.addCourse(course);
-		return "redirect:/course/course.action";
+		return "redirect:/admin/course/course.action";
 	}
 	
 	@RequestMapping(value="/updateCourse.action",method=RequestMethod.GET)
@@ -53,13 +53,13 @@ public class CourseController {
 		Course course= cs.findCourseById(id);
 		md.addAttribute("subject", subject);
 		md.addAttribute("list", course);
-		return "/course/updateCourse";
+		return "/admin/course/updateCourse";
 	}
 	
 	@RequestMapping(value="/updateCourse.action",method=RequestMethod.POST)
 	public String updateCourse(Course course){
 		cs.updateCourse(course);
-		return "redirect:/course/course.action";
+		return "redirect:/admin/course/course.action";
 	}
 	
 	@RequestMapping("/deleteCourse.action")

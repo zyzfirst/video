@@ -14,14 +14,12 @@
 
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/jquery-confirm.css"
-	rel="stylesheet">
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
+
 <script type="text/javascript">
 function deleteVideo(the){
 	$.confirm({
@@ -30,7 +28,7 @@ function deleteVideo(the){
 	    buttons: {
 	    	确认: function () {
 	        	$.get(
-	        		"${pageContext.request.contextPath}/video/deleteVideo.action",
+	        		"${pageContext.request.contextPath}/admin/video/deleteVideo.action",
 	        		{"id":the.name},
 	        		function(msg){
 	        			if(msg == "success"){
@@ -177,12 +175,12 @@ function deleteVideo(the){
 	</div>
 	<div>
 		<a class="btn btn-primary"
-			href="${pageContext.request.contextPath}/video/addVideo.action">添加视频</a>
+			href="${pageContext.request.contextPath}/admin/video/addVideo.action">添加视频</a>
 		<a class="btn btn-primary" id="multidelete" href="#" >批量删除<span
 			id="deleteCount" class="badge">0</span></a>
 
 		<form class="form-inline" style="float: right;"
-			action="${pageContext.request.contextPath}/video/video.action"
+			action="${pageContext.request.contextPath}/admin/video/video.action"
 			method="post">
 			<div class="form-group">
 				<label class="sr-only" for="exampleInputEmail3">视频标题</label> <input
@@ -210,7 +208,7 @@ function deleteVideo(the){
 
 			<input type="submit" class="btn btn-primary" value="查询" />
 		</form>
-        <form action="${pageContext.request.contextPath}/video/multiDeleteVideo.action" id="formId">
+        <form action="${pageContext.request.contextPath}/admin/video/multiDeleteVideo.action" id="formId">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -242,7 +240,7 @@ function deleteVideo(the){
 						<th>${li.videoLength }</th>
 						<th>${li.videoPlayTimes }</th>
 						<td><a class="glyphicon glyphicon-edit"
-							href="${pageContext.request.contextPath}/video/updateVideo.action?id=${li.id}"></a></td>
+							href="${pageContext.request.contextPath}/admin/video/updateVideo.action?id=${li.id}"></a></td>
 						<td><a class="glyphicon glyphicon-trash" name="${li.id}"
 							onclick="deleteVideo(this)"
 							></a></td>
@@ -251,10 +249,12 @@ function deleteVideo(the){
               </tbody>
 		</table>
 		</form>
-		<zyz:page url="${pageContext.request.contextPath}/video/video.action"></zyz:page>
+		<zyz:page url="${pageContext.request.contextPath}/admin/video/video.action"></zyz:page>
 		<%-- <%@include file="/modal.jsp" %> --%>
 	</div>
 </div>
 </body>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
+<link href="${pageContext.request.contextPath}/css/jquery-confirm.css" rel="stylesheet">
 </html>

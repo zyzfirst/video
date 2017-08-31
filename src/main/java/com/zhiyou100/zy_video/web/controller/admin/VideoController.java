@@ -1,4 +1,4 @@
-package com.zhiyou100.zy_video.web.controller;
+package com.zhiyou100.zy_video.web.controller.admin;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.zhiyou100.zy_video.service.VideoService;
 import com.zhiyou100.zy_video.utils.Page;
 
 @Controller
-@RequestMapping("/video")
+@RequestMapping("/admin/video")
 public class VideoController {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class VideoController {
 		md.addAttribute("speaker", speaker);
 		md.addAttribute("course", course);
 		md.addAttribute("page", list);
-		return "/video/video";
+		return "/admin/video/video";
 	}
 	
 	@RequestMapping("/deleteVideo.action")
@@ -52,7 +52,7 @@ public class VideoController {
 		List<Course> course= vs.findAllCourse();
 		md.addAttribute("speaker", speaker);
 		md.addAttribute("course", course);
-		return "/video/addVideo";
+		return "/admin/video/addVideo";
 	}
 	
 	@RequestMapping(value= "/addVideo.action",method=RequestMethod.POST)
@@ -61,7 +61,7 @@ public class VideoController {
 		video.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 		video.setVideoPlayTimes(0);
 		vs.addVideo(video);
-		return "redirect:/video/video.action";
+		return "redirect:/admin/video/video.action";
 	}
 	
 	@RequestMapping(value= "/updateVideo.action",method=RequestMethod.GET)
@@ -72,7 +72,7 @@ public class VideoController {
 		md.addAttribute("speaker", speaker);
 		md.addAttribute("course", course);
 		md.addAttribute("list", video);
-		return "/video/updateVideo";
+		return "/admin/video/updateVideo";
 	}
 	
 	@RequestMapping(value= "/updateVideo.action",method=RequestMethod.POST)
@@ -81,12 +81,12 @@ public class VideoController {
 		video.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 		video.setVideoPlayTimes(0);
 		vs.updateVideo(video);
-		return "redirect:/video/video.action";
+		return "redirect:/admin/video/video.action";
 	}
 	
 	@RequestMapping("/multiDeleteVideo.action")
 	public String multiDeleteVideo(Integer[] check){
 		vs.multiDeleteVideo(check);
-		return "redirect:/video/video.action";
+		return "redirect:/admin/video/video.action";
 	}
 }

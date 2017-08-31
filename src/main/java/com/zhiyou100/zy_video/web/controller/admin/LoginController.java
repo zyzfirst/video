@@ -1,8 +1,9 @@
-package com.zhiyou100.zy_video.web.controller;
+package com.zhiyou100.zy_video.web.controller.admin;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import com.zhiyou100.zy_video.model.Admin;
 import com.zhiyou100.zy_video.service.LoginService;
 
 @Controller
+@RequestMapping("/admin")
 public class LoginController {
 	@Autowired
 	LoginService ls;
@@ -19,21 +21,22 @@ public class LoginController {
 	public String login(Admin ad,HttpServletRequest req){
 		List<Admin> admin = ls.getAdmin(ad);
 		if(admin.size()==0){
-			return "/index";
+			return "/admin/index";
 		}else{
 			req.getSession().setAttribute("admin", admin.get(0));
-			return "forward:/video/video.action";
+			return "forward:/admin/video/video.action";
 		}
 	}
 	
 	@RequestMapping("/index.action")
 	public String index(){
-		return "/index";
+		return "/admin/index";
 	}
 	
 	@RequestMapping("/adminLogout.action")
-	public String adminLogout(){
-		return "redirect:/index.jsp";
+	public String adminLogout(HttpSession session){
+		session.invalidate();
+		return "redirect:/admin/index.action";
 	}
 	
 	

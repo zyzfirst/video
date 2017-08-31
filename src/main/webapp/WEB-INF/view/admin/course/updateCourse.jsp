@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -22,41 +22,40 @@
 <body>
 
 	<div class=" jumbotron" style="padding-left: 30px;">
-		<p style="font-size: 32px;">编辑主讲人-主讲人管理</p>
+		<p style="font-size: 32px;">编辑课程-课程管理</p>
 	</div>
 	<div>
 
-		<form class="form-horizontal" action="${pageContext.request.contextPath}/speaker/addSpeaker.action" method="post">
+		<form class="form-horizontal" action="${pageContext.request.contextPath}/admin/course/updateCourse.action" method="post">
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">名称</label>
+				<label for="inputEmail3" class="col-sm-2 control-label">所属学科</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" name="speakerName"
-						placeholder="主讲人名称">
+					<select name="subjectId" class="form-control">
+						<option value="">请选择所属学科</option>
+						<c:forEach items="${subject }" var="subject">
+						<option value="${subject.id }" ${list.subjectId ==subject.id?"selected":"" }>${subject.subjectName }</option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">职位</label>
+				<label for="inputPassword3" class="col-sm-2 control-label">标题</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputPassword3" name="speakerJob"
-						placeholder="主讲人职位">
+					<input type="text" class="form-control" id="inputPassword3" name="courseName"
+						value="${list.courseName }">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">头像图片</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputPassword3" name="speakerHeadUrl"
-						placeholder="主讲人头像地址,网络图片">
-				</div>
-			</div>
+
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">简介</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="3" name="speakerDescr"></textarea>
+					<textarea class="form-control" rows="3" name="courseDescr">${list.courseDescr }</textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label"></label>
 				<div class="col-sm-10">
+				    <input type="hidden" name="id" value="${list.id }">
 					<input type="submit" class="btn btn-primary" value="保存" /> <a
 						class="btn btn-default" href="javascript:history.go(-1)"
 						role="button">返回列表</a>

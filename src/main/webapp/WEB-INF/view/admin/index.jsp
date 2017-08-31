@@ -24,7 +24,7 @@
 		style="align-content: center; height: 300px; width: 300px; margin: 300px auto;">
 		<img src="${pageContext.request.contextPath}/img/logo.png" />
 
-		<form class="form-horizontal" action="${pageContext.request.contextPath}/login.action" method="post">
+		<form class="form-horizontal" action="${pageContext.request.contextPath}/admin/login.action" method="post">
 
 			<div class="form-group">
 

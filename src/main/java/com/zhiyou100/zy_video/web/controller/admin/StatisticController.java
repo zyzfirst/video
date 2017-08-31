@@ -1,4 +1,4 @@
-package com.zhiyou100.zy_video.web.controller;
+package com.zhiyou100.zy_video.web.controller.admin;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.zhiyou100.zy_video.model.Video;
 import com.zhiyou100.zy_video.service.VideoService;
 
 @Controller
-@RequestMapping("/statistic")
+@RequestMapping("/admin/statistic")
 public class StatisticController {
 	@Autowired
 	VideoService vs;
@@ -38,7 +38,7 @@ public class StatisticController {
 
 		md.addAttribute("avgTimes", times);
 		md.addAttribute("courseName", sb);
-		return "/statistic/statistic";
+		return "/admin/statistic/statistic";
 	}
 	
 	

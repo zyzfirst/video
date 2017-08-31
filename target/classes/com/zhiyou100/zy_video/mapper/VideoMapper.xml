@@ -420,7 +420,7 @@
   </delete>
   
   <resultMap type="video" id="StatisticMap">
-   <id column="id" property="id" jdbcType="INTEGER" />
+   <id column="vid" property="id" jdbcType="INTEGER" />
     <result column="video_title" property="videoTitle" jdbcType="VARCHAR" />
     <result column="speaker_id" property="speakerId" jdbcType="INTEGER" />
     <result column="course_id" property="courseId" jdbcType="INTEGER" />
@@ -435,7 +435,7 @@
     <result column="video_play_times" property="videoPlayTimes" jdbcType="INTEGER" />
     <result column="avgtimes" property="avgTimes" jdbcType="INTEGER" />
     <association property="course" javaType="Course">
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="cid" property="id" jdbcType="INTEGER" />
     <result column="course_name" property="courseName" jdbcType="VARCHAR" />
     <result column="course_descr" property="courseDescr" jdbcType="VARCHAR" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
@@ -445,7 +445,7 @@
   </resultMap>
   
   <select id="getStatistic" resultMap="StatisticMap">
-  select c.course_name,avg(video_play_times) avgtimes from video v,course c where c.id = course_id group by course_id
+  select c.course_name,c.id cid,v.id vid,avg(video_play_times) avgtimes from video v,course c where c.id = course_id group by course_id
   </select>
   
   <select id="findVideoById" resultMap="MyResultMap">

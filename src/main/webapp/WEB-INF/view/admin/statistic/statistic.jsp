@@ -17,7 +17,7 @@ var playTimes = null;
 function statisticRe(){
 	
 	$.get(
-		"${pageContext.request.contextPath}/statistic/statisticAjax.action",	
+		"${pageContext.request.contextPath}/admin/statistic/statisticAjax.action",	
 	    function(data){
 			courseName=data.courseName;
 			playTimes = data.playTimes;

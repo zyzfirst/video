@@ -14,15 +14,12 @@
 
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/jquery-confirm.css"
-	rel="stylesheet">
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
+
 <script type="text/javascript">
 /* function deleteSpeaker(the){
 	$("#url").val(the.name);
@@ -36,7 +33,7 @@ $.confirm({
     buttons: {
     	确认: function () {
     		$.get(
-	        		"${pageContext.request.contextPath}/speaker/deleteSpeaker.action",
+	        		"${pageContext.request.contextPath}/admin/speaker/deleteSpeaker.action",
 	        		{"id":the.name},
 	        		function(msg){
 	        			if(msg == "success"){
@@ -73,11 +70,11 @@ $.confirm({
 	</div>
 	<div>
 		<a class="btn btn-primary"
-			href="${pageContext.request.contextPath}/speaker/addSpeaker.action"
+			href="${pageContext.request.contextPath}/admin/speaker/addSpeaker.action"
 			role="button">添加主讲人</a>
 
 		<form class="form-inline" style="float: right;"
-			action="${pageContext.request.contextPath}/speaker/speaker.action"
+			action="${pageContext.request.contextPath}/admin/speaker/speaker.action"
 			method="post">
 			<div class="form-group">
 				<label for="exampleInputName2">名称</label> <input type="text"
@@ -111,7 +108,7 @@ $.confirm({
 						<td>${li.speakerJob }</td>
 						<td>${li.speakerDescr }</td>
 						<td><a class="glyphicon glyphicon-edit"
-							href="${pageContext.request.contextPath}/speaker/updateSpeaker.action?id=${li.id}"></a></td>
+							href="${pageContext.request.contextPath}/admin/speaker/updateSpeaker.action?id=${li.id}"></a></td>
 						<td><a class="glyphicon glyphicon-trash deleteId"
 							name="${li.id}"
 							onclick="deleteSpeaker(this)"></a></td>
@@ -120,11 +117,13 @@ $.confirm({
 			</tbody>
 		</table>
 		<zyz:page
-			url="${pageContext.request.contextPath}/speaker/speaker.action"></zyz:page>
+			url="${pageContext.request.contextPath}/admin/speaker/speaker.action"></zyz:page>
 		<%-- <%@include file="/modal.jsp"%> --%>
 
 	</div>
 </div>
 </body>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.js"></script>
+<link href="${pageContext.request.contextPath}/css/jquery-confirm.css" rel="stylesheet">
 </html>

@@ -28,7 +28,7 @@
 	<div>
 
 		<form class="form-horizontal" method="post"
-			action="${pageContext.request.contextPath}/video/updateVideo.action">
+			action="${pageContext.request.contextPath}/admin/video/updateVideo.action">
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">视频标题</label>
 				<div class="col-sm-10">

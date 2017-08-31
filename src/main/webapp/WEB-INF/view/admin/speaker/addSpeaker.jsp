@@ -26,38 +26,37 @@
 	</div>
 	<div>
 
-		<form class="form-horizontal" action="${pageContext.request.contextPath}/speaker/updateSpeaker.action" method="post">
+		<form class="form-horizontal" action="${pageContext.request.contextPath}/admin/speaker/addSpeaker.action" method="post">
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">名称</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputEmail3" name="speakerName"
-						value="${list.speakerName }">
+						placeholder="主讲人名称">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">职位</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputPassword3" name="speakerJob"
-						value="${list.speakerJob }">
+						placeholder="主讲人职位">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">头像图片</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputPassword3" name="speakerHeadUrl"
-						value="${list.speakerHeadUrl }">
+						placeholder="主讲人头像地址,网络图片">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label">简介</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="3" name="speakerDescr">${list.speakerDescr }</textarea>
+					<textarea class="form-control" rows="3" name="speakerDescr"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword3" class="col-sm-2 control-label"></label>
 				<div class="col-sm-10">
-				   <input type="hidden" name="id" value="${list.id }">
 					<input type="submit" class="btn btn-primary" value="保存" /> <a
 						class="btn btn-default" href="javascript:history.go(-1)"
 						role="button">返回列表</a>

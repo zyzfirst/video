@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.zhiyou100.zy_video.model.Course;
 import com.zhiyou100.zy_video.model.Pojo;
 import com.zhiyou100.zy_video.model.Subject;
+import com.zhiyou100.zy_video.model.Video;
 import com.zhiyou100.zy_video.service.FrontCourseService;
+import com.zhiyou100.zy_video.utils.DateUtil;
 
 @Controller
 @RequestMapping("/front/course")
@@ -22,6 +24,12 @@ public class FrontCourseController {
 	public String index(Integer subjectId,Model md){
 		Subject sub = fvs.findSubjectById(subjectId);
 		List<Course> course = fvs.findCourseById(subjectId);
+		for (Course course2 : course) {
+			List<Video> video =course2.getVideoList();
+			for (Video video2 : video) {
+				video2.setVideoLengthStr(DateUtil.dataFormate(video2.getVideoLength()));
+			}
+		}
 		/*Pojo pojo = fvs.findVideoAndCourseAndSubjectById(subjectId);
 		System.out.println(pojo.getSubject());
 		System.out.println(pojo.getCourse());*/

@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <base href="${BaseContext}">
+    <%-- <base href="${BaseContext}"> --%>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -28,6 +28,14 @@
 				newPasswordAgain : {
 					required : true,
 					equalTo : "[name=password]"
+				},
+				commit : {
+					required : true
+				},
+			
+				reCommit : {
+					required : true,
+					equalTo : "[name=commit]"
 				}
 			},
 			messages : {
@@ -38,6 +46,13 @@
 				newPasswordAgain : {
 					required : "确认密码不能为空",
 					equalTo : "两次密码不一致"
+				},
+				commit : {
+					required : ""
+				},
+				reCommit : {
+					required : "",
+					equalTo : ""
 				}
 			}
 		});
@@ -52,8 +67,16 @@
   	    function(mes){
   			if(mes == 1){
   				$("#result").text("密码输入有误!");
+  				$("#commitId").val("2");
+  				 /* $("#submitId").prop({
+  					"type":"button"
+  				}); */ 
   			}else{
   				$("#result").text("");
+  				$("#commitId").val("1");
+  				 /* $("#submitId").prop({
+  					"type":"submit"
+  				});  */
   			}
   		},
   	    "text"
@@ -110,7 +133,9 @@
                                     <input type="password" id="newPassword02" name="newPasswordAgain">
                                 </div>
                                 <div class="form_submit dd">
-                                    <input type="submit" value="保&#x3000;存">
+                                    <input type="submit" id="submitId" value="保&#x3000;存">
+                                     <input type="text" name="commit" value="1" style="height:0.1px;width:0px;padding:0px;margin:0px;">
+                                     <input type="text" id="commitId" name="reCommit" value="1" style="height:0.1px;width:0px;padding:0px;margin:0px;"> 
                                     <input type="hidden" name="id" value="${user.id }">
                                 </div>
                             </form>

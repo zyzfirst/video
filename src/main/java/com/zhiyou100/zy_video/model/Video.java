@@ -31,7 +31,17 @@ public class Video {
     
     private Course course;
     
-    public Course getCourse() {
+    private String videoLengthStr;
+    
+    public String getVideoLengthStr() {
+		return videoLengthStr;
+	}
+
+	public void setVideoLengthStr(String videoLengthStr) {
+		this.videoLengthStr = videoLengthStr;
+	}
+
+	public Course getCourse() {
 		return course;
 	}
 
