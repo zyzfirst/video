@@ -47,7 +47,7 @@ public class StatisticController {
 	public Json statisticAjax(Model md){
 		List<Video> list = vs.getStatistic();
 		
-		StringBuilder times = new StringBuilder();
+	/*	StringBuilder times = new StringBuilder();
 		times.append("["+list.get(0).getAvgTimes());
 		for(int a= 1;a<list.size();a++){
 			times.append(","+list.get(a).getAvgTimes());
@@ -60,10 +60,15 @@ public class StatisticController {
 			sb.append(",\""+list.get(a).getCourseName()+"\"");
 		}
 		sb.append("]");
-
+*/
 		Json json = new Json();
-		json.setCourseName(sb);
-		json.setPlayTimes(times);
+		
+		for (Video video : list) {
+			json.getCourseName().add(video.getCourseName());
+			json.getPlayTimes().add(video.getAvgTimes());
+			
+		}
+		
 		return json;
 	}
 

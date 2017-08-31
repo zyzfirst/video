@@ -1,8 +1,11 @@
 package com.zhiyou100.zy_video.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Json {
-	private StringBuilder courseName;
-	private StringBuilder playTimes;
+	private List<String> courseName = new ArrayList<>();
+	private List<Integer> playTimes = new ArrayList<>();
 	private boolean success;
 	private String message;
 	
@@ -18,16 +21,17 @@ public class Json {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public StringBuilder getCourseName() {
+
+	public List<String> getCourseName() {
 		return courseName;
 	}
-	public void setCourseName(StringBuilder courseName) {
+	public void setCourseName(List<String> courseName) {
 		this.courseName = courseName;
 	}
-	public StringBuilder getPlayTimes() {
+	public List<Integer> getPlayTimes() {
 		return playTimes;
 	}
-	public void setPlayTimes(StringBuilder playTimes) {
+	public void setPlayTimes(List<Integer> playTimes) {
 		this.playTimes = playTimes;
 	}
 	@Override

@@ -19,11 +19,8 @@ function statisticRe(){
 	$.get(
 		"${pageContext.request.contextPath}/statistic/statisticAjax.action",	
 	    function(data){
-			alert(data);
 			courseName=data.courseName;
-			alert(courseName);
 			playTimes = data.playTimes;
-			alert(playTimes);
 			
 			require
 			.config({
@@ -32,8 +29,7 @@ function statisticRe(){
 				}
 			});
 			
-			require([ 'echarts', 'echarts/chart/bar' 
-				], function(ec) {
+			require([ 'echarts', 'echarts/chart/bar' ], function(ec) {
 				// 基于准备好的dom，初始化echarts图表
 				var myChart = ec.init(document.getElementById('mainTwo'));
 
@@ -45,8 +41,8 @@ function statisticRe(){
 			    	        	fontWeight: '10px',              
 			    	        	
 			    	      	},
-			                x:"center" ,
-			                subtext:'课程平均播放次数'
+			                subtext:'课程平均播放次数',
+			                x:"left" ,
 			                
 			            },
 						tooltip : {
@@ -54,13 +50,14 @@ function statisticRe(){
 					},
 					legend : {
 						data : [ '课程平均播放次数' ],
-						y:'bottom'
+						y:'bottom',
+						x:'left'
 					},
-					xAxis : [ {
+					yAxis : [ {
 						type : 'category',
 						data : courseName
 					} ],
-					yAxis : [ {
+					xAxis : [ {
 						type : 'value'
 					} ],
 					series : [ {
@@ -130,7 +127,7 @@ function statisticRe(){
 				},
 				legend : {
 					data : [ '课程平均播放次数' ],
-					x:'bottom'
+					y:'bottom'
 				},
 				xAxis : [ {
 					type : 'category',

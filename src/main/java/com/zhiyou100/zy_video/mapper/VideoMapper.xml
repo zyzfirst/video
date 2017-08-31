@@ -420,7 +420,7 @@
   </delete>
   
   <resultMap type="video" id="StatisticMap">
-   <id column="vid" property="id" jdbcType="INTEGER" />
+   <id column="id" property="id" jdbcType="INTEGER" />
     <result column="video_title" property="videoTitle" jdbcType="VARCHAR" />
     <result column="speaker_id" property="speakerId" jdbcType="INTEGER" />
     <result column="course_id" property="courseId" jdbcType="INTEGER" />
@@ -435,7 +435,7 @@
     <result column="video_play_times" property="videoPlayTimes" jdbcType="INTEGER" />
     <result column="avgtimes" property="avgTimes" jdbcType="INTEGER" />
     <association property="course" javaType="Course">
-    <id column="cid" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="course_name" property="courseName" jdbcType="VARCHAR" />
     <result column="course_descr" property="courseDescr" jdbcType="VARCHAR" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
@@ -445,52 +445,14 @@
   </resultMap>
   
   <select id="getStatistic" resultMap="StatisticMap">
-  select c.course_name,avg(video_play_times) avgtimes, c.id cid,v.id vid from video v,course c where c.id = course_id group by course_id
+  select c.course_name,avg(video_play_times) avgtimes from video v,course c where c.id = course_id group by course_id
   </select>
   
   <select id="findVideoById" resultMap="MyResultMap">
   select v.*,v.id vid,s.id sid,c.id cid,s.*,c.course_name,c.course_descr from video v,speaker s,course c where speaker_id = s.id and course_id = c.id and v.id = #{id}
   </select>
   
-  <resultMap type="Pojo" id="VideoListMap">
-  <association property="subject" javaType="subject">
-  <id column="id" property="id" jdbcType="INTEGER" />
-  <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
-  </association>
-  <collection property="video" ofType="video">
-  <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="video_title" property="videoTitle" jdbcType="VARCHAR" />
-    <result column="speaker_id" property="speakerId" jdbcType="INTEGER" />
-    <result column="course_id" property="courseId" jdbcType="INTEGER" />
-    <result column="video_length" property="videoLength" jdbcType="INTEGER" />
-    <result column="video_image_url" property="videoImageUrl" jdbcType="VARCHAR" />
-    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
-    <result column="speaker_name" property="speakerName" jdbcType="VARCHAR" />
-    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
-    <result column="video_descr" property="videoDescr" jdbcType="VARCHAR" />
-    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="video_play_times" property="videoPlayTimes" jdbcType="INTEGER" />
-    <result column="avgtimes" property="avgTimes" jdbcType="INTEGER" />
-    <association property="speaker" javaType="Speaker">
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="speaker_name" property="speakerName" jdbcType="VARCHAR" />
-    <result column="speaker_job" property="speakerJob" jdbcType="VARCHAR" />
-    <result column="speaker_head_url" property="speakerHeadUrl" jdbcType="VARCHAR" />
-    <result column="speaker_descr" property="speakerDescr" jdbcType="VARCHAR" />
-    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    </association>
-    <association property="course" javaType="Course">
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
-    <result column="course_descr" property="courseDescr" jdbcType="VARCHAR" />
-    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
-    </association>
-  </collection>
-  </resultMap>
+ 
   
   <resultMap type="video" id="VideoByMap">
   <id column="vid" property="id" jdbcType="INTEGER" />
