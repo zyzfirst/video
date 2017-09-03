@@ -24,15 +24,6 @@ public class FrontCourseController {
 	public String index(Integer subjectId,Model md){
 		Subject sub = fvs.findSubjectById(subjectId);
 		List<Course> course = fvs.findCourseById(subjectId);
-		for (Course course2 : course) {
-			List<Video> video =course2.getVideoList();
-			for (Video video2 : video) {
-				video2.setVideoLengthStr(DateUtil.dataFormate(video2.getVideoLength()));
-			}
-		}
-		/*Pojo pojo = fvs.findVideoAndCourseAndSubjectById(subjectId);
-		System.out.println(pojo.getSubject());
-		System.out.println(pojo.getCourse());*/
 		md.addAttribute("course", course);
 		md.addAttribute("subject", sub);
 		return "/front/course/index";

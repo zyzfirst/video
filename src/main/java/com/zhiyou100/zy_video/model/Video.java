@@ -2,6 +2,8 @@ package com.zhiyou100.zy_video.model;
 
 import java.util.Date;
 
+import com.zhiyou100.zy_video.utils.DateUtil;
+
 public class Video {
     private Integer id;
 
@@ -34,7 +36,7 @@ public class Video {
     private String videoLengthStr;
     
     public String getVideoLengthStr() {
-		return videoLengthStr;
+		return DateUtil.dataFormate(this.getVideoLength());
 	}
 
 	public void setVideoLengthStr(String videoLengthStr) {

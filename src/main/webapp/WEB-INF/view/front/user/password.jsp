@@ -67,16 +67,10 @@
   	    function(mes){
   			if(mes == 1){
   				$("#result").text("密码输入有误!");
-  				$("#commitId").val("2");
-  				 /* $("#submitId").prop({
-  					"type":"button"
-  				}); */ 
+  				
   			}else{
   				$("#result").text("");
-  				$("#commitId").val("1");
-  				 /* $("#submitId").prop({
-  					"type":"submit"
-  				});  */
+  				
   			}
   		},
   	    "text"
@@ -134,8 +128,6 @@
                                 </div>
                                 <div class="form_submit dd">
                                     <input type="submit" id="submitId" value="保&#x3000;存">
-                                     <input type="text" name="commit" value="1" style="height:0.1px;width:0px;padding:0px;margin:0px;">
-                                     <input type="text" id="commitId" name="reCommit" value="1" style="height:0.1px;width:0px;padding:0px;margin:0px;"> 
                                     <input type="hidden" name="id" value="${user.id }">
                                 </div>
                             </form>

@@ -28,4 +28,8 @@ public interface FrontUserService {
 
 	List<User> findUserByMailAndCap(User u);
 
+	boolean isRegistUser(User user);
+
+	User findUserBySessionUser(User user);
+
 }

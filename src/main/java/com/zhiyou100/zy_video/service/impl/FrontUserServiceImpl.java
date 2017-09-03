@@ -1,5 +1,6 @@
 package com.zhiyou100.zy_video.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ import com.zhiyou100.zy_video.model.User;
 import com.zhiyou100.zy_video.model.UserExample;
 import com.zhiyou100.zy_video.service.FrontUserService;
 import com.zhiyou100.zy_video.utils.MailUtil;
+import com.zhiyou100.zy_video.utils.RandomUtil;
 @Service
 public class FrontUserServiceImpl implements FrontUserService {
 	@Autowired
@@ -73,10 +75,9 @@ public class FrontUserServiceImpl implements FrontUserService {
 
 	@Override
 	public void updateYzm(User u) {
-		int a  =new Random().nextInt(99999-10000);
-		String str = "" + (a+10000);
+		String str = ""+RandomUtil.getRandomNumber();
 		try {
-			MailUtil.send(u.getEmail(), "验证码", str);
+			MailUtil.send(u.getEmail(), "验证码",str);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,6 +90,24 @@ public class FrontUserServiceImpl implements FrontUserService {
 		UserExample ue = new UserExample();
 		ue.createCriteria().andEmailEqualTo(u.getEmail()).andCaptchaEqualTo(u.getCaptcha());
 		return um.selectByExample(ue);
+	}
+
+	@Override
+	public boolean isRegistUser(User user) {
+		boolean re = false;
+		UserExample ue = new UserExample();
+		ue.createCriteria().andEmailEqualTo(user.getEmail());
+		if(um.selectByExample(ue).isEmpty()){
+			user.setInsertTime(new Timestamp(System.currentTimeMillis()));
+			um.insertSelective(user);
+			re = true;
+		}
+		return re;
+	}
+
+	@Override
+	public User findUserBySessionUser(User user) {
+		return um.selectByPrimaryKey(user.getId());
 	}
 
 }

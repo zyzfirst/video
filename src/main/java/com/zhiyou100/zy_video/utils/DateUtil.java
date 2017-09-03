@@ -4,24 +4,18 @@ package com.zhiyou100.zy_video.utils;
 
 public class DateUtil {
 	
-	public static String dataFormate(Integer i){
-		String str = null;
-		int a = i/60;
-		if(a<10){
-			if(i%60<10){
-				str = "00:"+"0"+a+":0"+i%60;
-			}else{
-				str = "00:"+"0"+a+":"+i%60;
-			}
-		}else{
-			if(i%60<10){
-				str ="00:"+ a+":0"+i%60;
-			}else{
-				str = "00:"+a+":"+i%60;
-			}
-		}
-		return str;
+	public static String dataFormate(Integer videoLength){
+		Integer hour = videoLength / 3600;
+    	Integer min =  videoLength % 3600 / 60;
+    	Integer sec = videoLength % 60;
+		return String.format("%02d : %02d : %02d", hour,min,sec);
 		
 	}
+	public static void main(String[] args) {
+		System.out.println(dataFormate(68));
+		
+	}
+	
+	
 
 }

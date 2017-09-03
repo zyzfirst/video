@@ -40,7 +40,6 @@
 <div class="catalog">
 	<div class="container">
 		<p class="title">目录</p>
-
 		<c:forEach items="${list}" var="video" >
 			<div class="chapter">
 				<p class="biaoti"><a href="${pageContext.request.contextPath}/front/video/index.do?videoId=${video.id}&subjectId=${subject.id}">${video.videoTitle}</a></p>

@@ -2,6 +2,7 @@ package com.zhiyou100.zy_video.web.controller.front;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.zhiyou100.zy_video.model.Json;
 import com.zhiyou100.zy_video.model.User;
 import com.zhiyou100.zy_video.service.FrontUserService;
+import com.zhiyou100.zy_video.utils.PictureUtil;
 @Controller
 @RequestMapping("/front/user")
 public class UserController {
@@ -28,29 +30,27 @@ public class UserController {
 	
 	@RequestMapping("/regist.do")
 	@ResponseBody
-	public Json regist(User user,HttpSession session){
+	public Json regist(User user,Model md){
 		Json js = new Json();
-		List<User> list = fus.findUserByMail(user);
-		if(list.size() == 0){
-			user.setInsertTime(new Timestamp(System.currentTimeMillis()));
-			int i = fus.regist(user);
-			if(i != 0){
-				js.setSuccess(true);
-				session.setAttribute("email", user.getEmail());
-			}
-		}
-		else{
+		boolean result = fus.isRegistUser(user);
+		if(result){
+			js.setSuccess(true);
+			md.addAttribute("email", user.getEmail());
+		}else{
+			js.setSuccess(false);
 			js.setMessage("regist error");
 		}
 		return js;
 	}
+	
+	
 	
 	@RequestMapping("/login.do")
 	@ResponseBody
 	public Json login(User user,HttpSession session){
 		Json js = new Json();
 		List<User> list = fus.findUserByMailAndPwd(user);
-		if(list.size() != 0){
+		if(!list.isEmpty()){
 			js.setSuccess(true);
 			session.setAttribute("_front_user", list.get(0));
 		}
@@ -62,64 +62,69 @@ public class UserController {
 	
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session){
-		session.invalidate();
+		session.removeAttribute("_front_user");;
 		return "redirect:/index.jsp";
 	}
 	
 	@RequestMapping("/logoutUser.do")
 	public String logoutUser(HttpSession session){
 		session.removeAttribute("user");
-		return "redirect:/index.jsp";
+		return "redirect:/index.do";
 	}
 	
 	@RequestMapping("/index.do")
-	public String index(Integer id,HttpSession session){
-        User u = fus.findUserById(id);
-        session.setAttribute("user", u);
+	public String index(Model md,HttpSession session){
+		resetSessionAndModel(session, md);
 		return "/front/user/index";
 	}
 	
 	@RequestMapping(value="/profile.do",method=RequestMethod.GET)
-	public String profile(){
+	public String profile(Model md,HttpSession session){
+		resetSessionAndModel(session, md);
         return "/front/user/profile";
 	}
 	
 	@RequestMapping(value="/profile.do",method=RequestMethod.POST)
-	public String profile(User user,HttpSession session){
+	public String profile(User user){
         user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 		fus.updateUser(user);
-        return "redirect:/front/user/index.do?id="+user.getId();
+        return "redirect:/front/user/index.do";
 	}
 	
 	@RequestMapping(value="/avatar.do",method=RequestMethod.GET)
-	public String avatar(){
+	public String avatar(Model md,HttpSession session){
+		resetSessionAndModel(session, md);
         return "/front/user/avatar";
 	}
 	
 	@RequestMapping(value="/avatar.do",method=RequestMethod.POST)
 	public String avatar(User u,MultipartFile image_file, HttpSession session) throws Exception{
-        String name = UUID.randomUUID().toString().replaceAll("-", "");
-        String extension = FilenameUtils.getExtension(image_file.getOriginalFilename());
-        String fileName = name+"."+extension;
-        u.setHeadUrl(fileName);
+        
+        u.setHeadUrl(PictureUtil.getFileUrl(image_file.getOriginalFilename()));
         fus.updateImg(u);
-        String path = "D:\\upload";
-        image_file.transferTo(new File(path+"\\"+fileName));
+        image_file.transferTo(PictureUtil.getFilePath(image_file.getOriginalFilename()));
         User user = fus.findUserById(u.getId());
         session.setAttribute("user", user);
-		return "redirect:/front/user/index.do?id="+user.getId();
+		return "redirect:/front/user/index.do";
 	}
 	
 	@RequestMapping(value="/password.do",method=RequestMethod.GET)
-	public String password(){
+	public String password(Model md,HttpSession session){
+		resetSessionAndModel(session, md);
         return "/front/user/password";
 	}
 	
 	@RequestMapping(value="/password.do",method=RequestMethod.POST)
-	public String password(User u,HttpSession session){
-        fus.updatePwd(u);
-        session.invalidate();
-        return "redirect:/front/user/logout.do";
+	public String password(User u,Model md){
+		String pwd = fus.findPwdById(u.getId());
+		if(pwd.equals(u.getPassword())){
+			fus.updatePwd(u);
+			return "redirect:/front/user/logout.do";
+		}else{
+			md.addAttribute("message", "原始密码有误");
+			return "/front/user/password";
+		}
+		
 	}
 	
 	@RequestMapping("/passwordJuge.do")
@@ -146,7 +151,6 @@ public class UserController {
 			return "/front/user/reset_pwd";
 		}else{
 			md.addAttribute("result", 1);
-			md.addAttribute("email", u.getEmail());
 			return "/front/user/forget_pwd";
 		}
 	}
@@ -156,7 +160,7 @@ public class UserController {
 	public Json sendemail(String email) {
 		Json js = new Json();
 		List<User> u = fus.findUserByMail(email);
-		if(u.size() != 0){
+		if(!u.isEmpty()){
 			fus.updateYzm(u.get(0));
 			js.setSuccess(true);
 		}else{
@@ -170,6 +174,14 @@ public class UserController {
 	public String resetpwd(User u){
 		fus.updatePwd(u);
 		return "redirect:/front/user/logout.do";
+	}
+	private void resetSessionAndModel(HttpSession session,Model md){
+		User user = (User)session.getAttribute("_front_user");
+		User newUser = fus.findUserBySessionUser(user);
+		session.setAttribute("_front_user", newUser);
+		if(md != null){
+			md.addAttribute("user", newUser);
+		}
 	}
 
 }
